@@ -1,0 +1,452 @@
+{
+	"info": {
+		"_postman_id": "eb73e896-e281-451c-9bb8-c3f3a4dd6af6",
+		"name": "Marvel Characters API",
+		"description": "Colección de pruebas para la API REST de personajes de Marvel, incluyendo casos exitosos, validaciones y errores de nombre duplicado. Ahora con username en la ruta.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35999626"
+	},
+	"item": [
+		{
+			"name": "Obtener todos los personajes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK - Lista vacía",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "[]"
+				}
+			]
+		},
+		{
+			"name": "Obtener personaje por ID (exitoso)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters/1",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"id\": 1,\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Tony Stark\",\n  \"description\": \"Genius billionaire\",\n  \"powers\": [\"Armor\", \"Flight\"]\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener personaje por ID (no existe)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters/999",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "404 Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Character not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear personaje (exitoso)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Tony Stark\",\n  \"description\": \"Genius billionaire\",\n  \"powers\": [\"Armor\", \"Flight\"]\n}"
+				},
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201 Created",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"id\": 1,\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Tony Stark\",\n  \"description\": \"Genius billionaire\",\n  \"powers\": [\"Armor\", \"Flight\"]\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear personaje (nombre duplicado)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Otro\",\n  \"description\": \"Otro\",\n  \"powers\": [\"Armor\"]\n}"
+				},
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 Bad Request - Nombre duplicado",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Character name already exists\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear personaje (faltan campos requeridos)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"\",\n  \"alterego\": \"\",\n  \"description\": \"\",\n  \"powers\": []\n}"
+				},
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "400 Bad Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"name\": \"Name is required\",\n  \"alterego\": \"Alterego is required\",\n  \"description\": \"Description is required\",\n  \"powers\": \"Powers are required\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar personaje (exitoso)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Tony Stark\",\n  \"description\": \"Updated description\",\n  \"powers\": [\"Armor\", \"Flight\"]\n}"
+				},
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters/1",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"id\": 1,\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Tony Stark\",\n  \"description\": \"Updated description\",\n  \"powers\": [\"Armor\", \"Flight\"]\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar personaje (no existe)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Iron Man\",\n  \"alterego\": \"Tony Stark\",\n  \"description\": \"Updated description\",\n  \"powers\": [\"Armor\", \"Flight\"]\n}"
+				},
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters/999",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "404 Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Character not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Eliminar personaje (exitoso)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters/1",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "204 No Content",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "Eliminar personaje (no existe)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://bp-se-test-cabcd9b246a5.herokuapp.com/glocarri/api/characters/999",
+					"protocol": "http",
+					"host": [
+						"bp-se-test-cabcd9b246a5",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"glocarri",
+						"api",
+						"characters",
+						"999"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "404 Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"body": "{\n  \"error\": \"Character not found\"\n}"
+				}
+			]
+		}
+	]
+}
